@@ -1,5 +1,8 @@
 # scrapp-web
 
+Proyecto destinado a la creación de Scrapp web, aplicación que tiene como objetivo ayudar a la gestión de proyectos y flujos de trabajo para GetColors.
+
+
 ## Project setup
 ```
 npm install
@@ -24,6 +27,3 @@ npm run test
 ```
 npm run lint
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
