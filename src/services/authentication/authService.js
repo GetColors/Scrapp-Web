@@ -10,13 +10,12 @@ const config = {
 
 const authService = async () => {
   const provider = new firebase.auth.GoogleAuthProvider();
-  firebase
+  return firebase
     .initializeApp(config)
     .auth()
     .signInWithPopup(provider)
     .then(function(result) {
-      console.log("here");
-      console.log(result);
+      return result.credential.idToken;
     })
     .catch(function(error) {
       console.log(error);

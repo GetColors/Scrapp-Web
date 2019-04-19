@@ -1,12 +1,23 @@
 <template>
   <div id="app">
-    <router-view />
+    <navbar v-if="isLogged"></navbar>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
+import Navbar from "./components/base/Navbar/Navbar";
+
 export default {
-  name: "App"
+  name: "App",
+  components: {
+    Navbar
+  },
+  computed: {
+    isLogged: function() {
+      return this.$store.getters.isLogged;
+    }
+  }
 };
 </script>
 

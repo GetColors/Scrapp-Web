@@ -5,18 +5,17 @@
 </template>
 
 <script>
-import authService from "./../../services/authentication/authService.js";
-
 export default {
   name: "GoogleAuth",
   methods: {
-    authentication() {
-      authService()
-        .then(result => {
-          console.log(result);
+    async authentication() {
+      this.$store
+        .dispatch("login")
+        .then(() => {
+          this.$router.push("/home");
         })
-        .catch(function() {
-          alert("No es posible iniciar sesión en este momento");
+        .catch(() => {
+          alert("Something was wrong");
         });
     }
   }
