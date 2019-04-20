@@ -1,33 +1,14 @@
 <template>
-  <nav class="navbar is-link" role="navigation" aria-label="main navigation">
-    <div class="navbar-brand">
-      <a class="navbar-item" href="/">
-        Scrapp
-      </a>
+  <nav class="navbar navbar-expand-lg navbar-primary bg-primary">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-      <a
-        role="button"
-        class="navbar-burger burger"
-        aria-label="menu"
-        aria-expanded="false"
-        data-target="navbarBasicExample"
-      >
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-      </a>
-    </div>
-
-    <div id="navbarBasicExample" class="navbar-menu">
-      <div class="navbar-end">
-        <div class="navbar-item">
-          <div class="buttons">
-            <button class="button is-link" @click="logout">
-              Log out
-            </button>
-          </div>
-        </div>
-      </div>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <form class="form-inline my-2 my-lg-0">
+        <button class="btn btn-primary fixed-right" @click="logout">Cerrar sesión</button>
+      </form>
     </div>
   </nav>
 </template>
@@ -48,4 +29,9 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.btn {
+  position: absolute;
+  right: 20px;
+}
+</style>

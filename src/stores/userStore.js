@@ -3,37 +3,40 @@ import jwt_token from "jwt-decode";
 
 const userStore = {
   state: {
-    token: undefined
+    user: {
+      email: undefined
+    }
   },
   mutations: {
-    login: (state, payload) => {
-      state.token = payload;
-    },
-    logout: state => {
-      state.token = undefined;
+    loggedUser: (state, payload) => {
+      state.user = {
+        email: payload
+      };
     }
   },
   actions: {
     logout(context) {
-      context.commit("logout");
+      localStorage.clear();
     },
     login(context) {
       return new Promise((resolve, reject) => {
-        authService().then(
-          token => {
-            context.commit("login", token);
+        authService()
+          .then(token => {
+            const payload = jwt_token(token);
+            context.commit("loggedUser", payload.email);
+            localStorage.setItem("token", token);
             resolve(true);
-          },
-          error => {
+          })
+          .catch(error => {
             reject(error);
-          }
-        );
+          });
       });
     }
   },
   getters: {
     isLogged: state => {
-      return !(tokenDoesNotExists(state.token) || tokenIsExpired(state.token));
+      const token = localStorage.getItem("token");
+      return !(tokenDoesNotExists(token) || tokenIsExpired(token));
     }
   }
 };
