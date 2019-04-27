@@ -18,9 +18,9 @@ const userStore = {
     logout(context) {
       localStorage.clear();
     },
-    login(context, {email, password}) {
+    login(context, credentials) {
       return new Promise((resolve, reject) => {
-        loginUserService()
+        loginUserService(credentials)
           .then(token => {
             const payload = jwt_token(token);
             context.commit("loggedUser", payload.email);

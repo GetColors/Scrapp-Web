@@ -8,9 +8,11 @@
         name="email"
         class="form-control"
         placeholder="Email address"
-        v-model="email"
+        v-model="$v.email.$model"
         autofocus
       >
+      <small class="text-danger d-block" v-if="!$v.email.required">Campo obligatorio</small>
+      <small class="text-danger d-block" v-if="!$v.email.email">Email invalido</small>
 
 
       <label for="inputPassword" class="sr-only">Password</label>
@@ -21,18 +23,20 @@
         placeholder="Password"
         v-model="password"
       >
+      <small class="text-danger d-block" v-if="!$v.password.minLength">Minimo 8 carácteres</small>
 
 
-      <button class="btn btn-lg btn-primary btn-block">Sign in</button>
+      <button class="btn btn-lg btn-primary btn-block" :disabled="$v.$invalid">Sign in</button>
       <small>¿Aún no te creas una cuenta? <router-link to="/register"> click aqui.</router-link></small>
       <router-view/>
     </form>
+    {{$v}}
   </div>
 </template>
 
 <script>
 import router from 'vue-router';
-import loginUserService from '../../services/authentication/loginService';
+import { required, minLength, email } from 'vuelidate/lib/validators'
 export default {
   name: "Login",
   data() {
@@ -40,6 +44,16 @@ export default {
       email: '',
       password: ''
     };
+  },
+  validations: {
+    email: {
+      required,
+      email
+    },
+    password: {
+      required,
+      minLength: minLength(8)
+    }
   },
   methods: {
     onSubmit() {
@@ -49,7 +63,8 @@ export default {
       });
       this.$router.push("home");
     }
-  }
+  },
+  
 };
 </script>
 
