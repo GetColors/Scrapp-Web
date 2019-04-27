@@ -1,14 +1,14 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
-import userStore from "./stores/userStore";
-import projectStore from "./stores/projectStore";
+import authentication from "./store-modules/authentication/authentication";
+import projects from "./store-modules/project/projects";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   modules: {
-    userStore,
-    projectStore
+    authentication: authentication,
+    projectStore: projects
   }
 });

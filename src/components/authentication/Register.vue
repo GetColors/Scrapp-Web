@@ -6,37 +6,40 @@
       <label for="inputEmail" class="sr-only">Email address</label>
       <input
         name="email"
+        id="inputEmail"
         class="form-control"
         placeholder="Email address"
         v-model="email"
         autofocus
-      >
-
+      />
 
       <label for="inputPassword" class="sr-only">Password</label>
       <input
         type="password"
+        id="inputPassword"
         name="password"
         class="form-control"
         placeholder="Password"
         v-model="password"
-      >
-
+      />
 
       <button class="btn btn-lg btn-primary btn-block">Registrar</button>
+      <small
+        >¿Ya tienes una cuenta?
+        <router-link to="/login"> click aqui.</router-link></small
+      >
     </form>
   </div>
 </template>
 
 <script>
-import router from 'vue-router';
-import loginUserService from '../../services/authentication/loginService';
+import loginUserService from "../../services/authentication/loginService";
 export default {
   name: "Register",
   data() {
     return {
-      email: '',
-      password: ''
+      email: "",
+      password: ""
     };
   },
   methods: {
@@ -44,7 +47,7 @@ export default {
       if (this.isValid()) {
         loginUserService(this.email, this.password).then(
           res => {
-            localStorage.setItem('token', res.data.data.token);
+            localStorage.setItem("token", res.data.data.token);
             this.$router.push("home");
           },
           error => {
@@ -52,7 +55,7 @@ export default {
           }
         );
       } else {
-        alert('Debes llenar los campos correctamente.');
+        alert("Debes llenar los campos correctamente.");
       }
     },
     isValid() {

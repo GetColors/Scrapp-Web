@@ -7,6 +7,7 @@
 
 <script>
 import Navbar from "./components/base/Navbar/Navbar";
+import { mapGetters } from "vuex";
 
 export default {
   name: "App",
@@ -14,9 +15,7 @@ export default {
     Navbar
   },
   computed: {
-    isLogged: function() {
-      return this.$store.getters.isLogged;
-    }
+    ...mapGetters(["isLogged"])
   }
 };
 </script>

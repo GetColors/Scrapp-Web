@@ -6,48 +6,54 @@
       <label for="inputEmail" class="sr-only">Email address</label>
       <input
         name="email"
+        id="inputEmail"
         class="form-control"
         placeholder="Email address"
         v-model="email"
         autofocus
-      >
-
+      />
 
       <label for="inputPassword" class="sr-only">Password</label>
       <input
+        id="inputPassword"
         type="password"
         name="password"
         class="form-control"
         placeholder="Password"
         v-model="password"
+      />
+
+      <button class="btn btn-lg btn-primary btn-block">Iniciar sesión</button>
+      <small
+        >¿Aún no te creas una cuenta?
+        <router-link to="/register"> click aqui.</router-link></small
       >
-
-
-      <button class="btn btn-lg btn-primary btn-block">Sign in</button>
-      <small>¿Aún no te creas una cuenta? <router-link to="/register"> click aqui.</router-link></small>
-      <router-view/>
     </form>
   </div>
 </template>
 
 <script>
-import router from 'vue-router';
-import loginUserService from '../../services/authentication/loginService';
 export default {
   name: "Login",
   data() {
     return {
-      email: '',
-      password: ''
+      email: "",
+      password: ""
     };
   },
   methods: {
     onSubmit() {
-      this.$store.dispatch('login', {
-        email: this.email,
-        password: this.password
-      });
-      this.$router.push("home");
+      this.$store
+        .dispatch("login", {
+          email: this.email,
+          password: this.password
+        })
+        .then(() => {
+          this.$router.push("home");
+        })
+        .catch(error => {
+          alert(error);
+        });
     }
   }
 };

@@ -4,7 +4,7 @@ import router from "./router";
 import store from "./store";
 import axios from "axios";
 
-import Vuelidate from 'vuelidate';
+import Vuelidate from "vuelidate";
 Vue.use(Vuelidate);
 
 import "./registerServiceWorker";
