@@ -38,5 +38,7 @@ export default {
   border-radius: 10px;
   text-align: center;
   line-height: 40px;
+  text-decoration: none;
+  color: dodgerblue;
 }
 </style>
