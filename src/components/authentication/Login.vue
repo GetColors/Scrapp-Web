@@ -10,10 +10,10 @@
         class="form-control"
         placeholder="Email address"
         v-model="$v.email.$model"
-        autofocus
       >
-      <small class="text-danger d-block" v-if="!$v.email.required">Campo obligatorio</small>
-      <small class="text-danger d-block" v-if="!$v.email.email">Email invalido</small>
+      <ul class="list__ul">
+        <li class="text-danger" v-if="!$v.email.email">Email invalido</li>
+      </ul>
 
 
       <label for="inputPassword" class="sr-only">Password</label>
@@ -31,8 +31,7 @@
       <button class="btn btn-lg btn-primary btn-block" :disabled="$v.$invalid">Sign in</button>
       <small>¿Aún no te creas una cuenta? <router-link to="/register"> click aqui.</router-link></small>
       <router-view/>
-    </form>
-    {{$v}}
+    </form>}
   </div>
 </template>
 
@@ -59,7 +58,8 @@ export default {
   },
   methods: {
     onSubmit() {
-      this.$store
+      if(this.$v.valid){
+        this.$store
         .dispatch("login", {
           email: this.email,
           password: this.password
@@ -70,9 +70,11 @@ export default {
         .catch(error => {
           alert(error);
         });
+    } else {
+      alert("WTF NIGGA!!! ARE YOU SERIUS, YOU MOTHERFUCKING BITCH SHOULD WRITE YOU FUCKING MAIL AND PASSWORD")
     }
+      }  
   },
-  
 };
 </script>
 
