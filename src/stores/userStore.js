@@ -1,4 +1,4 @@
-import authService from "../services/authentication/authService";
+import loginUserService from "../services/authentication/loginService";
 import jwt_token from "jwt-decode";
 
 const userStore = {
@@ -18,9 +18,9 @@ const userStore = {
     logout(context) {
       localStorage.clear();
     },
-    login(context) {
+    login(context, {email, password}) {
       return new Promise((resolve, reject) => {
-        authService()
+        loginUserService()
           .then(token => {
             const payload = jwt_token(token);
             context.commit("loggedUser", payload.email);

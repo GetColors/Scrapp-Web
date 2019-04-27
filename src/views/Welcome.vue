@@ -1,16 +1,16 @@
 <template>
   <div id="welcome">
-    <google-auth></google-auth>
+    <login></login>
   </div>
 </template>
 
 <script>
-import GoogleAuth from "../components/authentication/GoogleAuth";
+import Login from "../components/authentication/Login";
 
 export default {
   name: "Welcome",
   components: {
-    GoogleAuth
+    Login
   }
 };
 </script>
