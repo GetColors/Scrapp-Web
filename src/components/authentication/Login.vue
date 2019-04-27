@@ -6,6 +6,7 @@
       <label for="inputEmail" class="sr-only">Email address</label>
       <input
         name="email"
+        id="inputEmail"
         class="form-control"
         placeholder="Email address"
         v-model="$v.email.$model"
@@ -17,6 +18,7 @@
 
       <label for="inputPassword" class="sr-only">Password</label>
       <input
+        id="inputPassword"
         type="password"
         name="password"
         class="form-control"
@@ -41,8 +43,8 @@ export default {
   name: "Login",
   data() {
     return {
-      email: '',
-      password: ''
+      email: "",
+      password: ""
     };
   },
   validations: {
@@ -57,11 +59,17 @@ export default {
   },
   methods: {
     onSubmit() {
-      this.$store.dispatch('login', {
-        email: this.email,
-        password: this.password
-      });
-      this.$router.push("home");
+      this.$store
+        .dispatch("login", {
+          email: this.email,
+          password: this.password
+        })
+        .then(() => {
+          this.$router.push("home");
+        })
+        .catch(error => {
+          alert(error);
+        });
     }
   },
   

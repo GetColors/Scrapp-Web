@@ -4,6 +4,7 @@ import Welcome from "./views/Welcome";
 import Home from "./views/Home";
 import Register from "./components/authentication/Register";
 import authenticated from "./guards/authenticatedGuard";
+import Login from "./components/authentication/Login";
 
 Vue.use(Router);
 
@@ -19,19 +20,26 @@ const router = new Router({
       }
     },
     {
+      path: "/register",
+      component: Register,
+      meta: {
+        guest: true
+      }
+    },
+    {
+      path: "/login",
+      component: Login,
+      meta: {
+        guest: true
+      }
+    },
+    {
       path: "/home",
       component: Home,
       meta: {
         requiresAuth: true
       }
     },
-    {
-      path: "/register",
-      component: Register,
-      meta: {
-        guest: true
-      }
-    }
   ]
 });
 

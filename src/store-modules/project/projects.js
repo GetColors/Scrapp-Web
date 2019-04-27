@@ -1,7 +1,7 @@
-import fetchAllProjectsService from "../services/project/fetchAllProjectsService";
-import createProjectService from "../services/project/createProjectService";
+import fetchAllProjectsService from "../../services/project/fetchAllProjectsService";
+import createProjectService from "../../services/project/createProjectService";
 
-const projectStore = {
+const projects = {
   state: {
     projects: []
   },
@@ -32,4 +32,4 @@ const projectStore = {
   }
 };
 
-export default projectStore;
+export default projects;

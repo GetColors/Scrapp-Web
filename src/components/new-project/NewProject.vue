@@ -74,11 +74,7 @@ export default {
   },
   methods: {
     create() {
-      if (this.project.title && this.project.title.length > 5) {
-        this.$store.dispatch("createProject", this.project);
-      }else{
-        alert("titulo invalido");
-      }
+      console.log("here");
     }
   }
 };

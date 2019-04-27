@@ -22,14 +22,9 @@ export default {
       projects: []
     };
   },
-  created: function() {
-    this.$store.dispatch("fetchAllProjects");
-  },
+  created: function() {},
   computed: {
-    getProjects: function() {
-      console.log(this.$store.getters.allProjects);
-      return this.$store.getters.allProjects;
-    }
+    getProjects: function() {}
   }
 };
 </script>
