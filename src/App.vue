@@ -7,17 +7,12 @@
 
 <script>
 import Navbar from "./components/ui/Navbar";
-import ErrorMessage from "./components/ui/ErrorMessage";
 import { mapGetters } from "vuex";
 
 export default {
   name: "App",
   components: {
-    Navbar,
-    ErrorMessage
-  },
-  computed: {
-    ...mapGetters(["isLoggedIn"])
+    Navbar
   }
 };
 </script>
