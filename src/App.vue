@@ -1,14 +1,14 @@
 <template>
   <div id="app">
     <error-message></error-message>
-    <navbar v-if="isLogged"></navbar>
+    <navbar v-if="isLoggedIn"></navbar>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-import Navbar from "./components/base/Navbar/Navbar";
-import ErrorMessage from './components/error-message/ErrorMessage';
+import Navbar from "./components/ui/Navbar";
+import ErrorMessage from "./components/ui/ErrorMessage";
 import { mapGetters } from "vuex";
 
 export default {
@@ -18,7 +18,7 @@ export default {
     ErrorMessage
   },
   computed: {
-    ...mapGetters(["isLogged"])
+    ...mapGetters(["isLoggedIn"])
   }
 };
 </script>

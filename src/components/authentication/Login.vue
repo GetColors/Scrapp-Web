@@ -10,11 +10,10 @@
         class="form-control"
         placeholder="Correo"
         v-model="$v.email.$model"
-      >
+      />
       <ul class="list__ul">
         <li class="text-danger" v-if="!$v.email.email">Email invalido</li>
       </ul>
-
 
       <label for="inputPassword" class="sr-only">Password</label>
       <input
@@ -24,22 +23,31 @@
         class="form-control"
         placeholder="Contraseña"
         v-model="password"
-      >
+      />
       <ul>
-        <li class="text-danger" v-if="!$v.password.minLength">Minimo 8 carácteres></li>
+        <li class="text-danger" v-if="!$v.password.minLength">
+          Minimo 8 carácteres>
+        </li>
       </ul>
 
-
-      <button class="btn btn-lg btn-primary btn-block" :disabled="$v.$invalid">Iniciar sesión</button>
-      <small>¿Aún no te creas una cuenta? <router-link to="/register"> click aqui.</router-link></small>
-      <router-view/>
-    </form>}
+      <button class="btn btn-lg btn-primary btn-block" :disabled="$v.$invalid">
+        Iniciar sesión
+      </button>
+      <small
+        >¿Aún no te creas una cuenta?
+        <router-link to="/register"> click aqui.</router-link></small
+      >
+      <router-view />
+    </form>
+    <error-message v-if="error" :message="error"></error-message>
   </div>
 </template>
 
 <script>
-import router from 'vue-router';
-import { required, minLength, email } from 'vuelidate/lib/validators'
+import { required, minLength, email } from "vuelidate/lib/validators";
+import ErrorMessage from "../ui/ErrorMessage";
+import { mapGetters } from "vuex";
+
 export default {
   name: "Login",
   data() {
@@ -47,6 +55,12 @@ export default {
       email: "",
       password: ""
     };
+  },
+  computed: {
+    ...mapGetters(["error"])
+  },
+  components: {
+    ErrorMessage
   },
   validations: {
     email: {
@@ -60,23 +74,22 @@ export default {
   },
   methods: {
     onSubmit() {
-      if(!this.$v.invalid){
+      if (!this.$v.invalid) {
         this.$store
-        .dispatch("login", {
-          email: this.email,
-          password: this.password
-        })
-        .then(() => {
-          this.$router.push("home");
-        })
-        .catch(error => {
-          this.$store.dispatch('showError', "hahahaha");
-        });
-    } else {
-      this.$store.dispatch("WTF NIGGA!!! ARE YOU SERIUS, YOU MOTHERFUCKING BITCH SHOULD WRITE YOU FUCKING MAIL AND PASSWORD");
+          .dispatch("login", {
+            email: this.email,
+            password: this.password
+          })
+          .then(() => {
+            this.$router.push("/home");
+          });
+      } else {
+        alert(
+          "WTF NIGGA!!! ARE YOU SERIUS, YOU MOTHERFUCKING BITCH SHOULD WRITE YOU FUCKING MAIL AND PASSWORD"
+        );
+      }
     }
-      }  
-  },
+  }
 };
 </script>
 

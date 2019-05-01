@@ -3,51 +3,77 @@ import registerUserService from "../../services/authentication/registerService";
 
 const authentication = {
   state: {
-    isLogged: false
+    status: "",
+    token: localStorage.getItem("token") || "",
+    errors: {
+      general: {
+        message: undefined
+      }
+    }
   },
   mutations: {
-    IS_LOGGED: (state, status) => {
-      state.isLogged = status;
+    AUTH_REQUEST(state) {
+      state.status = "loading";
+    },
+    AUTH_SUCCESS(state, token) {
+      state.status = "success";
+      state.token = token;
+    },
+    LOGOUT(state) {
+      state.status = "";
+      state.token = "";
+    },
+    SET_GENERAL_ERROR: (state, message) => {
+      state.errors.general.message = message;
+      state.status = "error";
+    },
+    CLOSE_GENERAL_ERROR: state => {
+      state.errors.general.message = undefined;
     }
   },
   actions: {
-    logout({ commit }) {
+    logout: ({ commit }) => {
+      commit("LOGOUT");
       localStorage.clear();
-      commit("IS_LOGGED", false);
     },
     login({ commit }, credentials) {
       return new Promise((resolve, reject) => {
         loginUserService(credentials)
           .then(response => {
-            localStorage.setItem("token", response.data.data.token);
-            commit("IS_LOGGED", true);
+            const token = response.data.data.token;
+            localStorage.setItem("token", token);
+            commit("AUTH_SUCCESS", token);
             resolve(true);
           })
           .catch(error => {
-            reject(error);
+            if (error.response.data.error.code === 2001) {
+              const errorMessage = "Credenciales incorrectas.";
+              commit("SET_GENERAL_ERROR", errorMessage);
+            }
           });
       });
     },
     register({ commit }, credentials) {
       return new Promise((resolve, reject) => {
         registerUserService(credentials)
-          .then(response => {
-            localStorage.setItem("token", response.data.token);
+          .then(() => {
             resolve(true);
           })
           .catch(error => {
-            reject(error);
-            console.log(error.response.data.error.message)
+            if (error.response.data.error.code === 2000) {
+              const errorMessage = "El correo ingresado ya está en uso.";
+              commit("SET_GENERAL_ERROR", errorMessage);
+            }
+            reject();
           });
       });
     }
   },
   getters: {
-    isLogged: state => {
-      if ( localStorage.getItem('token')) {
-        return true;
-      }
-      return false;
+    isLoggedIn: state => !!state.token,
+    authStatus: state => state.status,
+    error: state => {
+      return state.errors.general.message;
     }
   }
 };

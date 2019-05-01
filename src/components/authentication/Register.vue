@@ -11,7 +11,7 @@
         placeholder="Correo"
         v-model="$v.email.$model"
         autofocus
-      >
+      />
       <ul class="list__ul">
         <li class="text-danger" v-if="!$v.email.email">Email invalido</li>
       </ul>
@@ -24,9 +24,11 @@
         class="form-control"
         placeholder="Contraseña"
         v-model="password"
-      >
+      />
       <ul>
-        <li class="text-danger" v-if="!$v.password.minLength">Minimo 8 carácteres</li>
+        <li class="text-danger" v-if="!$v.password.minLength">
+          Minimo 8 carácteres
+        </li>
       </ul>
 
       <label for="inputRepeatPassword" class="sr-only">Repeat Password</label>
@@ -37,23 +39,30 @@
         class="form-control"
         placeholder="Repetir Contraseña"
         v-model="repeatPassword"
-      >
+      />
       <ul>
-        <li class="text-danger" v-if="!$v.repeatPassword.sameAsPassword">Las contraseñas deben ser idénticas</li>
+        <li class="text-danger" v-if="!$v.repeatPassword.sameAsPassword">
+          Las contraseñas deben ser idénticas
+        </li>
       </ul>
 
-      <button class="btn btn-lg btn-primary btn-block" :disabled="$v.$invalid">Registrar</button>
+      <button class="btn btn-lg btn-primary btn-block" :disabled="$v.$invalid">
+        Registrar
+      </button>
       <small>
         ¿Ya tienes una cuenta?
         <router-link to="/login">click aqui.</router-link>
       </small>
     </form>
+    <error-message v-if="error" :message="error"></error-message>
   </div>
 </template>
 
 <script>
-import router from 'vue-router';
 import { required, minLength, email, sameAs } from "vuelidate/lib/validators";
+import ErrorMessage from "../ui/ErrorMessage";
+import { mapGetters } from "vuex";
+
 export default {
   name: "Register",
   data() {
@@ -62,6 +71,12 @@ export default {
       password: "",
       repeatPassword: ""
     };
+  },
+  components: {
+    ErrorMessage
+  },
+  computed: {
+    ...mapGetters(["error"])
   },
   validations: {
     email: {
@@ -87,12 +102,6 @@ export default {
           })
           .then(() => {
             this.$router.push("login");
-          })
-          .catch(error => {
-              <div class="notification">
-                <button class="delete"></button>
-                {{}}
-              </div>
           });
       } else {
         alert(

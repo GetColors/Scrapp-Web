@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import ProjectList from "../components/project-list/ProjectList";
-import NewProject from "../components/new-project/NewProject";
+import ProjectList from "../components/project/ProjectList";
+import NewProject from "../components/project/NewProject";
 
 export default {
   name: "Home",

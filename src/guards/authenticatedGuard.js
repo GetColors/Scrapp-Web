@@ -1,7 +1,7 @@
 import store from "../store";
 
 const authenticated = () => {
-  return store.getters.isLogged;
+  return store.getters.isLoggedIn;
 };
 
 export default authenticated;
