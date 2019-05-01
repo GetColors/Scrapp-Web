@@ -8,10 +8,13 @@
         name="email"
         id="inputEmail"
         class="form-control"
-        placeholder="Email address"
-        v-model="email"
+        placeholder="Correo"
+        v-model="$v.email.$model"
         autofocus
-      />
+      >
+      <ul class="list__ul">
+        <li class="text-danger" v-if="!$v.email.email">Email invalido</li>
+      </ul>
 
       <label for="inputPassword" class="sr-only">Password</label>
       <input
@@ -19,51 +22,83 @@
         id="inputPassword"
         name="password"
         class="form-control"
-        placeholder="Password"
+        placeholder="Contraseña"
         v-model="password"
-      />
-
-      <button class="btn btn-lg btn-primary btn-block">Registrar</button>
-      <small
-        >¿Ya tienes una cuenta?
-        <router-link to="/login"> click aqui.</router-link></small
       >
+      <ul>
+        <li class="text-danger" v-if="!$v.password.minLength">Minimo 8 carácteres</li>
+      </ul>
+
+      <label for="inputRepeatPassword" class="sr-only">Repeat Password</label>
+      <input
+        type="password"
+        id="inputRepeatPassword"
+        name="repeatPassword"
+        class="form-control"
+        placeholder="Repetir Contraseña"
+        v-model="repeatPassword"
+      >
+      <ul>
+        <li class="text-danger" v-if="!$v.repeatPassword.sameAsPassword">Las contraseñas deben ser idénticas</li>
+      </ul>
+
+      <button class="btn btn-lg btn-primary btn-block" :disabled="$v.$invalid">Registrar</button>
+      <small>
+        ¿Ya tienes una cuenta?
+        <router-link to="/login">click aqui.</router-link>
+      </small>
     </form>
   </div>
 </template>
 
 <script>
-import loginUserService from "../../services/authentication/loginService";
+import router from 'vue-router';
+import { required, minLength, email, sameAs } from "vuelidate/lib/validators";
 export default {
   name: "Register",
   data() {
     return {
       email: "",
-      password: ""
+      password: "",
+      repeatPassword: ""
     };
+  },
+  validations: {
+    email: {
+      required,
+      email
+    },
+    password: {
+      required,
+      minLength: minLength(8)
+    },
+    repeatPassword: {
+      sameAsPassword: sameAs("password")
+    }
   },
   methods: {
     onSubmit() {
-      if (this.isValid()) {
-        loginUserService(this.email, this.password).then(
-          res => {
-            localStorage.setItem("token", res.data.data.token);
-            this.$router.push("home");
-          },
-          error => {
-            alert(error);
-          }
-        );
+      if (!this.$v.invalid) {
+        this.$store
+          .dispatch("register", {
+            email: this.email,
+            password: this.password,
+            repeatPassword: this.repeatPassword
+          })
+          .then(() => {
+            this.$router.push("login");
+          })
+          .catch(error => {
+              <div class="notification">
+                <button class="delete"></button>
+                {{}}
+              </div>
+          });
       } else {
-        alert("Debes llenar los campos correctamente.");
+        alert(
+          "WTF NIGGA!!! ARE YOU SERIUS, YOU MOTHERFUCKING BITCH SHOULD WRITE YOU FUCKING MAIL AND PASSWORD"
+        );
       }
-    },
-    isValid() {
-      let isValid = true;
-      if (this.email === "" || this.password === "") {
-        isValid = false;
-      }
-      return isValid;
     }
   }
 };

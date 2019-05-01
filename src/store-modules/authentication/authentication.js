@@ -1,4 +1,5 @@
 import loginUserService from "../../services/authentication/loginService";
+import registerUserService from "../../services/authentication/registerService";
 
 const authentication = {
   state: {
@@ -18,7 +19,7 @@ const authentication = {
       return new Promise((resolve, reject) => {
         loginUserService(credentials)
           .then(response => {
-            localStorage.setItem("token", response.data.token);
+            localStorage.setItem("token", response.data.data.token);
             commit("IS_LOGGED", true);
             resolve(true);
           })
@@ -26,11 +27,27 @@ const authentication = {
             reject(error);
           });
       });
+    },
+    register({ commit }, credentials) {
+      return new Promise((resolve, reject) => {
+        registerUserService(credentials)
+          .then(response => {
+            localStorage.setItem("token", response.data.token);
+            resolve(true);
+          })
+          .catch(error => {
+            reject(error);
+            console.log(error.response.data.error.message)
+          });
+      });
     }
   },
   getters: {
     isLogged: state => {
-      return state.isLogged;
+      if ( localStorage.getItem('token')) {
+        return true;
+      }
+      return false;
     }
   }
 };

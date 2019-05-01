@@ -8,7 +8,7 @@
         name="email"
         id="inputEmail"
         class="form-control"
-        placeholder="Email address"
+        placeholder="Correo"
         v-model="$v.email.$model"
       >
       <ul class="list__ul">
@@ -22,13 +22,15 @@
         type="password"
         name="password"
         class="form-control"
-        placeholder="Password"
+        placeholder="Contraseña"
         v-model="password"
       >
-      <small class="text-danger d-block" v-if="!$v.password.minLength">Minimo 8 carácteres</small>
+      <ul>
+        <li class="text-danger" v-if="!$v.password.minLength">Minimo 8 carácteres></li>
+      </ul>
 
 
-      <button class="btn btn-lg btn-primary btn-block" :disabled="$v.$invalid">Sign in</button>
+      <button class="btn btn-lg btn-primary btn-block" :disabled="$v.$invalid">Iniciar sesión</button>
       <small>¿Aún no te creas una cuenta? <router-link to="/register"> click aqui.</router-link></small>
       <router-view/>
     </form>}
@@ -58,7 +60,7 @@ export default {
   },
   methods: {
     onSubmit() {
-      if(this.$v.valid){
+      if(!this.$v.invalid){
         this.$store
         .dispatch("login", {
           email: this.email,
@@ -68,10 +70,10 @@ export default {
           this.$router.push("home");
         })
         .catch(error => {
-          alert(error);
+          this.$store.dispatch('showError', "hahahaha");
         });
     } else {
-      alert("WTF NIGGA!!! ARE YOU SERIUS, YOU MOTHERFUCKING BITCH SHOULD WRITE YOU FUCKING MAIL AND PASSWORD")
+      this.$store.dispatch("WTF NIGGA!!! ARE YOU SERIUS, YOU MOTHERFUCKING BITCH SHOULD WRITE YOU FUCKING MAIL AND PASSWORD");
     }
       }  
   },
