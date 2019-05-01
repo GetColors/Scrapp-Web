@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <error-message></error-message>
     <navbar v-if="isLoggedIn"></navbar>
     <router-view></router-view>
   </div>
