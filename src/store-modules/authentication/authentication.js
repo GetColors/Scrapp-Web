@@ -67,6 +67,9 @@ const authentication = {
             reject();
           });
       });
+    },
+    closeError({ commit }) {
+      commit("CLOSE_GENERAL_ERROR");
     }
   },
   getters: {
