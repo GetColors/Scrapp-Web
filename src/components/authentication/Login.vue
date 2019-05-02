@@ -26,7 +26,7 @@
       />
       <ul>
         <li class="text-danger" v-if="!$v.password.minLength">
-          Minimo 8 carácteres>
+          Minimo 8 carácteres
         </li>
       </ul>
 

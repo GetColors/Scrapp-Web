@@ -10,7 +10,7 @@ RUN npm install
 
 COPY . .
 
-RUN npm run generate
+RUN npm run build
 
 FROM nginx:1.14-alpine
 

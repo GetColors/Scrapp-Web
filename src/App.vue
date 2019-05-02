@@ -13,6 +13,9 @@ export default {
   name: "App",
   components: {
     Navbar
+  },
+  computed: {
+    ...mapGetters(["isLoggedIn"])
   }
 };
 </script>
