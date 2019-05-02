@@ -1,46 +1,54 @@
 <template>
-  <div class="mt-5">
-    <form @submit.prevent="onSubmit" class="form-signin">
-      <h1 class="h3 mb-3 font-weight-normal text-center">Ingresar</h1>
+  <v-container>
+    <v-layout>
+      <v-flex md4></v-flex>
+      <v-flex md4>
+        <v-card>
+          <form @submit.prevent="onSubmit" class="form-signin">
+            <h1 class="h3 mb-3 font-weight-normal text-center">Ingresar</h1>
 
-      <label for="inputEmail" class="sr-only">Email address</label>
-      <input
-        name="email"
-        id="inputEmail"
-        class="form-control"
-        placeholder="Correo"
-        v-model="$v.email.$model"
-      />
-      <ul class="list__ul">
-        <li class="text-danger" v-if="!$v.email.email">Email invalido</li>
-      </ul>
+            <label for="inputEmail" class="sr-only">Email address</label>
+            <input
+                    name="email"
+                    id="inputEmail"
+                    class="form-control"
+                    placeholder="Correo"
+                    v-model="$v.email.$model"
+            />
+            <ul class="list__ul">
+              <li class="text-danger" v-if="!$v.email.email">Email invalido</li>
+            </ul>
 
-      <label for="inputPassword" class="sr-only">Password</label>
-      <input
-        id="inputPassword"
-        type="password"
-        name="password"
-        class="form-control"
-        placeholder="Contraseña"
-        v-model="password"
-      />
-      <ul>
-        <li class="text-danger" v-if="!$v.password.minLength">
-          Minimo 8 carácteres
-        </li>
-      </ul>
+            <label for="inputPassword" class="sr-only">Password</label>
+            <input
+                    id="inputPassword"
+                    type="password"
+                    name="password"
+                    class="form-control"
+                    placeholder="Contraseña"
+                    v-model="password"
+            />
+            <ul>
+              <li class="text-danger" v-if="!$v.password.minLength">
+                Minimo 8 carácteres
+              </li>
+            </ul>
 
-      <button class="btn btn-lg btn-primary btn-block" :disabled="$v.$invalid">
-        Iniciar sesión
-      </button>
-      <small
-        >¿Aún no te creas una cuenta?
-        <router-link to="/register"> click aqui.</router-link></small
-      >
-      <router-view />
-    </form>
-    <error-message v-if="error" :message="error"></error-message>
-  </div>
+            <button class="btn btn-lg btn-primary btn-block" :disabled="$v.$invalid">
+              Iniciar sesión
+            </button>
+            <small
+            >¿Aún no te creas una cuenta?
+              <router-link to="/register"> click aqui.</router-link></small
+            >
+            <router-view />
+          </form>
+          <error-message v-if="error" :message="error"></error-message>
+        </v-card>
+      </v-flex>
+      <v-flex md4></v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
