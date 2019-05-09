@@ -1,9 +1,13 @@
 <template>
   <div id="welcome">
     <div class="option-box">
-      <router-link class="link-button" to="/login">Iniciar sesión</router-link>
+      <b-button type="is-danger" class="fixed" @click="toLogin"
+        >Iniciar sesión</b-button
+      >
       <p>o</p>
-      <router-link class="link-button" to="/register">Registrarse</router-link>
+      <b-button type="is-danger" class="fixed" @click="toRegister"
+        >Registrarse</b-button
+      >
     </div>
   </div>
 </template>
@@ -11,7 +15,15 @@
 <script>
 export default {
   name: "Welcome",
-  components: {}
+  components: {},
+  methods: {
+    toLogin() {
+      this.$router.push({ name: "login" });
+    },
+    toRegister() {
+      this.$router.push({ name: "register" });
+    }
+  }
 };
 </script>
 
@@ -30,15 +42,7 @@ export default {
   align-items: center;
   flex-direction: column;
 }
-
-.link-button {
-  height: 40px;
+.button {
   width: 150px;
-  border: 1px solid black;
-  border-radius: 10px;
-  text-align: center;
-  line-height: 40px;
-  text-decoration: none;
-  color: dodgerblue;
 }
 </style>

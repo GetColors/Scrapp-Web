@@ -3,11 +3,10 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import axios from "axios";
-import Vuetify from "vuetify";
+import Buefy from "buefy";
+import "buefy/dist/buefy.css";
 
-Vue.use(Vuetify);
-
-import "vuetify/dist/vuetify.min.css";
+Vue.use(Buefy);
 
 import Vuelidate from "vuelidate";
 Vue.use(Vuelidate);

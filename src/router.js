@@ -2,9 +2,9 @@ import Vue from "vue";
 import Router from "vue-router";
 import Welcome from "./views/Welcome";
 import Home from "./views/Home";
-import Register from "./components/authentication/Register";
+import Register from "./views/Register";
 import authenticated from "./guards/authenticatedGuard";
-import Login from "./components/authentication/Login";
+import Login from "./views/Login";
 
 Vue.use(Router);
 
@@ -15,20 +15,23 @@ const router = new Router({
     {
       path: "/",
       component: Welcome,
+      name: "welcome",
       meta: {
         guest: true
       }
     },
     {
-      path: "/register",
+      path: "/registro",
       component: Register,
+      name: "register",
       meta: {
         guest: true
       }
     },
     {
-      path: "/login",
+      path: "/iniciar-sesion",
       component: Login,
+      name: "login",
       meta: {
         guest: true
       }
@@ -36,6 +39,7 @@ const router = new Router({
     {
       path: "/home",
       component: Home,
+      name: "home",
       meta: {
         requiresAuth: true
       }

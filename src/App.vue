@@ -1,8 +1,8 @@
 <template>
-  <div id="app">
+  <v-app id="app">
     <navbar v-if="isLoggedIn"></navbar>
     <router-view></router-view>
-  </div>
+  </v-app>
 </template>
 
 <script>
